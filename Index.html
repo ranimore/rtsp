@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="myApp" ng-controller="myCtrl">
+<head>
+    <meta charset="utf-8" />
+    <title>Home</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
+    <script src="http:////ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-resource.js"></script>
+
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans);
+
+        body {
+            padding: 0 2em;
+            font-family: Arial, sans-serif;
+            color: #024457;
+        }
+
+        button {
+            background: #28d;
+            border-color: transparent;
+            color: #fff;
+            cursor: pointer;
+            width: 200px;
+            height: 30px;
+            border-radius: 8px;
+            font-size: 20px;
+        }
+
+            button:hover {
+                background: #17c;
+            }
+
+            /* Buttons' focus effect */
+            button:focus {
+                border-color: #05a;
+            }
+
+
+        /*card css*/
+        .card {
+            float: left;
+            background-color: #f4f4f4;
+            width: 250px;
+            /*margin: 10px auto;*/
+            margin-left: 20px;
+            margin-top: 10px;
+            box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.7);
+        }
+
+        .card-header {
+            overflow: hidden;
+            width: 100%;
+            max-height: 200px;
+        }
+
+            .card-header img {
+                width: 100%;
+            }
+
+        .card-content {
+            width: 85%;
+            margin: 35px auto;
+        }
+
+            .card-content h3 {
+                font-size: 25px;
+                margin-bottom: 0;
+                color: #303F9F;
+                font-family: 'Montserrat', sans-serif;
+            }
+
+            .card-content h4 {
+                font-size: 14px;
+                margin-top: 0;
+                color: #FF5252;
+                font-family: 'Montserrat', sans-serif;
+            }
+
+            .card-content p {
+                color: #727272;
+                font-size: 12px;
+                font-family: 'Open Sans', sans-serif;
+            }
+
+        .card-footer {
+            border-top: solid 1px #B6B6B6;
+            padding: 5px;
+        }
+
+            .card-footer ul {
+                padding: 0;
+                width: 90%;
+                margin: auto;
+                text-align: center;
+            }
+
+                .card-footer ul li {
+                    display: inline-block;
+                    list-style: none;
+                    margin: 5px;
+                }
+
+                    .card-footer ul li i {
+                        font-size: 2em;
+                        color: #3F51B5;
+                    }
+    </style>
+
+
+    
+</head>
+<body>
+    
+       
+   
+
+
+   
+
+
+    <div ng-repeat="x in cameras">
+        <div class="card" id="{{x._id}}">
+            <div class="card-header">
+                <!-- <%=cameras[i].name%>-->{{x.name}}
+                <img src="images/SAOVDC-HD3300.jpg" />
+            </div>
+            <div class="card-content">
+                <input type="hidden" value="{{x.rtsp_url}}" id="rtspurl" />
+
+                Max Time Out(sec):
+                <input type="range" id="mxtmIn" value="{{x.maxtimeOut}}" min="0" max="30" oninput="mxtmOut.value=mxtmIn.value" ng-model="x.maxtimeOut" />
+                <output id="mxtmOut">{{x.maxtimeOut}}</output><br />
+
+
+                Max Video Length(sec):
+                <input type="range" id="mxVlIn" value="{{x.maxvideoLength}}" min="1" max="100" oninput="mxVlOut.value=mxVlIn.value" ng-model="x.maxvideoLength" />
+                <output id="mxVlOut">{{x.maxvideoLength}}</output>
+
+            </div>
+            <div class="card-footer">
+                <button id='Start_button' class="record" ng-click="recording(x)"><strong>Start Recording</strong></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

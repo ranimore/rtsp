@@ -1,0 +1,13 @@
+{
+  "name": "rtsp-service",
+  "version": "0.0.0",
+  "description": "rtspService",
+  "main": "server.js",
+  "author": {
+    "name": "hp",
+    "email": ""
+  },
+  "dependencies": {
+    "rtsp-recorder": "0.0.3"
+  }
+}

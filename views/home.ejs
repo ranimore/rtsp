@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">-->
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans);
+        body {
+           padding: 0 2em;
+  font-family: Arial, sans-serif;
+        color: #024457;
+ 
+        }
+            button {
+background: #28d;
+border-color: transparent;
+color: #fff;
+cursor: pointer;
+width:200px;
+height:30px;
+border-radius:8px;
+font-size:20px;
+}
+
+ button:hover {
+  background: #17c;
+}
+
+/* Buttons' focus effect */
+  button:focus {
+  border-color: #05a;
+}
+
+
+/*card css*/
+        .card {
+            float:left;
+            background-color: #f4f4f4;
+            width: 250px;
+            /*margin: 10px auto;*/
+            margin-left:20px;
+            margin-top:10px;
+            
+            box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.7);
+        }
+
+        .card-header {
+            overflow: hidden;
+            width: 100%;
+            max-height: 200px;
+        }
+
+            .card-header img {
+                width: 100%;
+            }
+
+        .card-content {
+            width: 85%;
+            margin: 35px auto;
+        }
+
+            .card-content h3 {
+                font-size: 25px;
+                margin-bottom: 0;
+                color: #303F9F;
+                font-family: 'Montserrat', sans-serif;
+            }
+
+            .card-content h4 {
+                font-size: 14px;
+                margin-top: 0;
+                color: #FF5252;
+                font-family: 'Montserrat', sans-serif;
+            }
+
+            .card-content p {
+                color: #727272;
+                font-size: 12px;
+                font-family: 'Open Sans', sans-serif;
+            }
+
+        .card-footer {
+            border-top: solid 1px #B6B6B6;
+            padding: 5px;
+        }
+
+            .card-footer ul {
+                padding: 0;
+                width: 90%;
+                margin: auto;
+                text-align: center;
+            }
+
+                .card-footer ul li {
+                    display: inline-block;
+                    list-style: none;
+                    margin: 5px;
+                }
+
+                    .card-footer ul li i {
+                        font-size: 2em;
+                        color: #3F51B5;
+                    }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
+    <script src='https://code.jquery.com/jquery-3.0.0.min.js' crossorigin='anonymous'></script>
+   <!-- <script src="clientside.js"></script>-->
+<script>
+    $(function () {
+        $('.record').click(function (e) {
+            //Stop event
+            e.preventDefault();
+
+            //finding out which one is clicked
+            var camid = '#' + $(this).attr('rel');
+
+            //featchinhg the current card
+
+            var $card = $(camid);
+
+            var timeoutval = $card.find('#mxtmIn').val();
+            var txtVidLength = $card.find('#videolength').val();
+            var videourl = $card.find('#rtspurl').val();
+
+            
+            var obj = {
+                sp: timeoutval,
+                vl: txtVidLength,
+                rtspurl: videourl,
+            }
+            alert('Recording Started...');
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:1337/Start_recording',
+                dataType: "json",
+                data: JSON.stringify(obj),
+                contentType: "application/json",
+                                            
+                });
+            
+
+        });
+        $("input[type='range']").change(function () {
+            $(this).next('span').html($(this).val());
+        });
+
+        $("input[type='range']").each(function () {
+            $(this).next('span').html($(this).val());
+        });
+
+
+
+
+    });
+</script>
+</head>
+
+<body>
+
+
+
+
+
+  
+    <% for(var i=0; i<cameras.length; i++) {%>
+                         <div id="<%=cameras[i]._id%>">
+                             <div class="card">
+                                 <div class="card-header">
+                                     <%=cameras[i].name%>
+                                     <img src="images/SAOVDC-HD3300.jpg" />
+                                 </div>
+                                 <div class="card-content">
+                                    <input type="hidden" value="<%=cameras[i].rtsp_url%>" id="rtspurl" />
+
+                                     Max Time Out(sec):
+
+                                     <input type="range" id="mxtmIn" min="0" max="30" value="<%=cameras[i].maxtimeOut%>" /><span></span><br />
+                                     <!--<output id="mxtmOut"><%=cameras[i].maxtimeOut%></output><br />-->
+
+                                     Max Video Length(sec):
+                                     <input type="range" id="videolength"  min="1" max="100" value="<%=cameras[i].maxvideoLength%>"  /><span></span><br />
+                                     <!--<output id="mxVlOut"><%=cameras[i].maxvideoLength%> </output>-->
+
+                                 </div>
+                                 <div class="card-footer">
+                                     <button id='Start_button' class="record" rel="<%=cameras[i]._id%>"><strong>Start Recording</strong></button>
+                                 </div>
+                             </div>
+                         </div>
+                         <% } %>
+       
+</body>
+</html>

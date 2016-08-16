@@ -1,0 +1,69 @@
+﻿   body {
+           padding: 0 2em;
+  font-family: Arial, sans-serif;
+        color: #024457;
+  background: #f2f2f2;
+        }
+        h1 {
+         background: #28d;
+          width:35%;
+          height:60px;
+          padding:8px;
+          color:white;
+        }
+
+       .panel {
+           padding:5px;
+       background-color:white;
+       height:450px;
+       width:30%;
+       border:1px solid lavender;
+       border-radius:15px;
+       
+       }
+        button {
+  background: #28d;
+  border-color: transparent;
+  color: #fff;
+  cursor: pointer;
+width:150px;
+height:50px;
+border-radius:8px;
+font-size:20px;
+}
+
+ button:hover {
+  background: #17c;
+}
+
+/* Buttons' focus effect */
+  button:focus {
+  border-color: #05a;
+}
+
+ input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  padding: 5px;
+  outline: 0;
+  font-family: inherit;
+  /*font-size: 0.95em;*/
+}
+
+ input[type="text"]
+ {
+  background: #fff;
+  border-color: #bbb;
+  color: #555;
+   border-radius:5px;
+}
+
+/* Text fields' focus effect */
+ input[type="text"]:focus
+{
+  border-color: #888;
+}
+ 

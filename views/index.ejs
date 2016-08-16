@@ -1,0 +1,46 @@
+﻿<html>
+<head>
+
+    <link href="../public/Style.css" rel="stylesheet" />
+    <!--<script>
+
+        $(document).ready(function () {
+
+            window.location.reload();
+        });
+    </script>-->
+</head>
+
+<body>
+
+    <center><h1 >Camera Information</h1></center>
+    <table align="center" >
+        <tr><th>name</th><th>remarks</th><th>isActive</th><th>maxtimeout</th><th>maxvideolength</th><th>rtsp_url</th><th>Edit</th></tr>
+        
+            <% for(var i=0; i<cameras.length; i++) {%>
+                                <tr>
+                                     
+                                    
+                                     <td><%=cameras[i].name%></td>
+                                     
+                                     <td><%=cameras[i].remark%> </td>
+                                     
+                                     <td><%= cameras[i].isActive%></td>
+                                     
+                                     <td><%=cameras[i].maxtimeOut%></td>
+                                    
+                                     <td><%=cameras[i].maxvideoLength%> </td>
+                                     
+                                     <td><%=cameras[i].rtsp_url%> </td>
+                                     
+                                     <td><%- link_to('Update', 'UpdateCamInfo/'+cameras[i]._id) %> <%- link_to('Delete', 'DeleteCamInfo/'+cameras[i]._id) %></td>
+                                   
+                                 </tr>
+                <% } %>
+       
+
+</table>
+    <center>  <a href='http://localhost:1337/AddNewCam'>Add New Camera</a></center>
+    
+</body>
+</html>

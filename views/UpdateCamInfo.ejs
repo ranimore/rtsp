@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <link href="../public/AddNew.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <title></title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.js"></script>
+ 
+
+    <script>
+	$(document).ready(function () {
+	var j=$('#id1').val();
+	
+	var status=<%=isActive%>;
+   
+	if(status==true)
+	{
+	$('#isActive').each(function(){ this.checked = true; });
+	}
+	$('#submit').click(function () {
+        console.log("fd");
+		var obj = {
+            name: $('#name').val(),
+            remark : $('#remark').val(),
+            isActive: $('#isActive').is(":checked"),
+            
+            maxtimeOut: $('#mxtmIn').val(),
+            maxvideoLength: $('#mxVlIn').val(),
+            rtsp_url: $('#rtsp_url').val(),
+          
+        }
+		console.dir(obj);
+		var url='http://localhost:1337/UpdateCamInfo/'+j;
+
+		$.post(url,obj,function(d){
+		    
+		    window.location.href="/";
+		});
+		 
+		
+		
+	});
+	});
+</script>
+
+
+</head>
+<body>
+    <center>
+        <h1>Enter Camera Information</h1>
+        <div class="panel">
+            <input id="id1" type="hidden" value="<%= id%>" />
+            <table cellpadding="10" cellspacing="5">
+                <tr>
+                    <td> Name of camera:</td>
+                    <td><input type="text" id="name" value="<%= name%>" /></td>
+                </tr>
+
+                <tr>
+                    <td> Remarks:</td>
+                    <td><input type="text" id="remark" value="<%= remark %>" /></td>
+                </tr>
+
+                <tr>
+                    <td>Camera IsActive </td>
+                    <td><input type="checkbox" id="isActive" name="isActive" value="false" /></td>
+                    <!-- <td><select id="isActive"><option value="true">true</option> <option value="false">false</option> </select></td>-->
+                </tr>
+
+                <tr>
+                    <td>maxTimeOutSec:</td>
+                    <td>
+                        <input type="range" id="mxtmIn" value="<%=maxtimeOut %>" min="0" max="30" oninput="mxtmOut.value=mxtmIn.value" />
+                        <output id="mxtmOut"><%=maxtimeOut %></output>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>maxVideoLengthSec:</td>
+                    <td>
+                        <input type="range" id="mxVlIn" value="<%=maxvideoLength %>" min="1" max="100" oninput="mxVlOut.value=mxVlIn.value" />
+                        <output id="mxVlOut"><%=maxvideoLength %></output>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Rtsp_url:</td>
+                    <td><input type="text" id="rtsp_url" value="<%= rtsp_url%>" /></td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" align="center"><button id="submit"><strong>Update</strong></button></td>
+                </tr>
+            </table>
+            </div>
+</center> 
+</body>
+</html>
